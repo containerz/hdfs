@@ -27,7 +27,7 @@ public final class Main {
   }
 
   private Thread getSchedulerThread(Injector injector) {
-    Thread scheduler = new Thread(injector.getInstance(Scheduler.class));
+    Thread scheduler = new Thread(injector.getInstance(HdfsScheduler.class));
     scheduler.setName("HdfsScheduler");
 
     scheduler.setUncaughtExceptionHandler(schedulerExceptionHandler);
