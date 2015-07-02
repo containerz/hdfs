@@ -16,7 +16,8 @@ public class FutureMessage {
   private final String message;
 
 
-  public FutureMessage(SchedulerDriver driver, HdfsScheduler scheduler, Protos.TaskID taskId, Protos.SlaveID slaveID, String message) {
+  public FutureMessage(SchedulerDriver driver, HdfsScheduler scheduler,
+    Protos.TaskID taskId, Protos.SlaveID slaveID, String message) {
     this.driver = driver;
     this.scheduler = scheduler;
     this.taskId = taskId;

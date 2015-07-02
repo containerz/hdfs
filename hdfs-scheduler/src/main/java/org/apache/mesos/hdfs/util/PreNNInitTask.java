@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.TimerTask;
 
 /**
- * Used for a NameNode init timer to see if DNS is complete
+ * Used for a NameNode init timer to see if DNS is complete.
  */
 public class PreNNInitTask extends TimerTask {
 

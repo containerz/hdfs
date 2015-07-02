@@ -1,9 +1,7 @@
 package org.apache.mesos.hdfs.executor;
 
 /**
- * A invalid condition exist within the executor
- *
- * @author kensipe
+ * A invalid condition exist within the executor.
  */
 public class ExecutorException extends RuntimeException {
   public ExecutorException() {
