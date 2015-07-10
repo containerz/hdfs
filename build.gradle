@@ -20,12 +20,15 @@ subprojects {
   apply plugin: 'java'
   apply plugin: 'application'
 
+  apply from: "$rootDir/gradle/quality.gradle"
+  apply from: "$rootDir/gradle/spock.gradle"
+
   sourceCompatibility = '1.7'
   targetCompatibility = '1.7'
 
   [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-  mainClassName = "com.apache.mesos.hdfs.Main"
+  mainClassName = "org.apache.mesos.hdfs.scheduler.Main"
 
   group = "com.apache.mesos.hdfs"
   version = "0.1.1"

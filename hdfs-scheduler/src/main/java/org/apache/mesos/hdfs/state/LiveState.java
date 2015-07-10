@@ -11,18 +11,23 @@ import org.apache.mesos.hdfs.util.HDFSConstants;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
+/**
+ * Manages the "Live" state of running tasks.
+ */
 @Singleton
 public class LiveState {
-  public static final Log log = LogFactory.getLog(LiveState.class);
+  private final Log log = LogFactory.getLog(LiveState.class);
+
   private Set<Protos.TaskID> stagingTasks = new HashSet<>();
   private AcquisitionPhase currentAcquisitionPhase = AcquisitionPhase.RECONCILING_TASKS;
   // TODO (nicgrayson) Might need to split this out to jns, nns, and dns if dns too big
   //TODO (elingg) we need to also track ZKFC's state
-  private LinkedHashMap<String, Protos.TaskStatus> runningTasks = new LinkedHashMap<>();
-  private HashMap<Protos.TaskStatus, Boolean> nameNode1TaskMap = new HashMap<>();
-  private HashMap<Protos.TaskStatus, Boolean> nameNode2TaskMap = new HashMap<>();
+  private Map<String, Protos.TaskStatus> runningTasks = new LinkedHashMap<>();
+  private Map<Protos.TaskStatus, Boolean> nameNode1TaskMap = new HashMap<>();
+  private Map<Protos.TaskStatus, Boolean> nameNode2TaskMap = new HashMap<>();
 
   public boolean isNameNode1Initialized() {
     return !nameNode1TaskMap.isEmpty() && nameNode1TaskMap.values().iterator().next();
@@ -44,7 +49,7 @@ public class LiveState {
     stagingTasks.remove(taskID);
   }
 
-  public HashMap<String, Protos.TaskStatus> getRunningTasks() {
+  public Map<String, Protos.TaskStatus> getRunningTasks() {
     return runningTasks;
   }
 
@@ -59,7 +64,9 @@ public class LiveState {
     runningTasks.remove(taskId.getValue());
   }
 
+  @SuppressWarnings("PMD")
   public void updateTaskForStatus(Protos.TaskStatus status) {
+    // todo:  (kgs) refactor to remove the pmd challenges with this code
     // TODO (elingg) Use Starting Status when the task is running, but not initialized. Use running
     // status when the task is initialized so that we can differentiate during the reconciliation
     // phase. Also, add the health checks which will kill the task if it doesn't properly
